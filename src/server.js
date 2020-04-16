@@ -9,7 +9,7 @@ const wss = new ws.Server({ server });
 wss.on("connection", (ws) => {
   ws.on("message", ({ name, msg }) => {
     wss.clients.forEach((client) => {
-      client.send(`${name}: ${message}`);
+      client.send(`${name}: ${msg}`);
     });
   });
 
