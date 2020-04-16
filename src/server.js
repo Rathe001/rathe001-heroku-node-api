@@ -11,9 +11,9 @@ wss.on("connection", (ws) => {
     const { name, msg } = JSON.parse(data);
     wss.clients.forEach((client) => {
       if (client !== ws) {
-        client.send(`${name} says, "${message}"`);
+        client.send(`${name} says, "${msg}"`);
       } else {
-        ws.send(`You say, "${message}"`);
+        ws.send(`You say, "${msg}"`);
       }
     });
   });
