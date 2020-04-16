@@ -8,17 +8,29 @@ const wss = new ws.Server({ server });
 
 wss.on("connection", (ws) => {
   ws.on("message", (data) => {
-    const { name, msg } = JSON.parse(data);
-    wss.clients.forEach((client) => {
-      if (client !== ws) {
-        client.send(`${name} says, "${msg}"`);
-      } else {
-        ws.send(`You say, "${msg}"`);
-      }
-    });
+    const { name, input } = JSON.parse(data);
+    switch (type) {
+      case "connection":
+        wss.clients.forEach((client) => {
+          if (client !== ws) {
+            client.send(`${name} has connected.`);
+          } else {
+            ws.send(`You have connected.`);
+          }
+        });
+      case "message":
+      default:
+        wss.clients.forEach((client) => {
+          if (client !== ws) {
+            client.send(`${name} says, "${input}"`);
+          } else {
+            ws.send(`You say, "${input}"`);
+          }
+        });
+    }
   });
 
-  ws.send("Hi there, I am a WS server!");
+  ws.send("Welcome to the server!");
 });
 
 server.listen(process.env.PORT || 3001, () => {
