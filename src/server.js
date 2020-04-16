@@ -7,10 +7,13 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 
 wss.on("connection", (ws) => {
-  ws.on("message", ({ name, msg }) => {
+  ws.on("message", (data) => {
+    console.log(data);
+    /*
     wss.clients.forEach((client) => {
       client.send(`${name}: ${msg}`);
     });
+    */
   });
 
   ws.send("Hi there, I am a WS server!");
