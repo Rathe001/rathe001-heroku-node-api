@@ -1,16 +1,16 @@
-import express from "express";
-import http from "http";
-import ws from "ws";
+import express from 'express';
+import http from 'http';
+import ws from 'ws';
 
 const app = express();
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
 
-wss.on("connection", (ws) => {
-  ws.on("message", (data) => {
-    const { name, input } = JSON.parse(data);
+wss.on('connection', (ws) => {
+  ws.on('message', (data) => {
+    const { name, input, type } = JSON.parse(data);
     switch (type) {
-      case "connection":
+      case 'connection':
         wss.clients.forEach((client) => {
           if (client !== ws) {
             client.send(`${name} has connected.`);
@@ -18,7 +18,7 @@ wss.on("connection", (ws) => {
             ws.send(`You have connected.`);
           }
         });
-      case "message":
+      case 'message':
       default:
         wss.clients.forEach((client) => {
           if (client !== ws) {
@@ -30,7 +30,7 @@ wss.on("connection", (ws) => {
     }
   });
 
-  ws.send("Welcome to the server!");
+  ws.send('Welcome to the server!');
 });
 
 server.listen(process.env.PORT || 3001, () => {
