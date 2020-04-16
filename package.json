@@ -1,0 +1,25 @@
+{
+  "name": "heroku-node-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node ./src/server.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rathe001/heroku-node-api.git"
+  },
+  "author": "Josh Tummel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rathe001/heroku-node-api/issues"
+  },
+  "homepage": "https://github.com/Rathe001/heroku-node-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.2.3"
+  }
+}
