@@ -7,16 +7,9 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 
 wss.on("connection", (ws) => {
-  ws.on("message", (message) => {
-    console.log(`received: ${message}`);
-
-    //ws.send(`Hello, you sent ${message}`);
+  ws.on("message", ({ name, msg }) => {
     wss.clients.forEach((client) => {
-      if (client !== ws) {
-        client.send(`Other person said: ${message}`);
-      } else {
-        ws.send(`You said: ${message}`);
-      }
+      client.send(`${name}: ${message}`);
     });
   });
 
