@@ -10,6 +10,8 @@ const wss = new ws.Server({ server });
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
     const { name, input, type } = JSON.parse(data);
+    messages.push('Welcome to the server!');
+
     switch (type) {
       case 'connection':
         wss.clients.forEach((client) => {
@@ -31,8 +33,6 @@ wss.on('connection', (ws) => {
     }
     ws.send(messages);
   });
-
-  ws.send('Welcome to the server!');
 });
 
 server.listen(process.env.PORT || 3001, () => {
