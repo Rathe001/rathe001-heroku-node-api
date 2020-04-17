@@ -13,12 +13,12 @@ wss.on('connection', (ws) => {
 
     switch (type) {
       case 'connection':
-        console.log('add connection');
         messages.push({ name, input, type, id: messages.length + 1 });
+        break;
       case 'message':
       default:
-        console.log('add message');
         messages.push({ name, input, type, id: messages.length + 1 });
+        break;
     }
     ws.send(JSON.stringify(messages));
   });
