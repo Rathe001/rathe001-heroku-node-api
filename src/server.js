@@ -31,7 +31,7 @@ wss.on('connection', (ws) => {
           }
         });
     }
-    ws.send(messages);
+    ws.send(JSON.stringify(messages));
   });
 });
 
