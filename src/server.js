@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import ws from 'ws';
 
+let messages = [];
 const app = express();
 const server = http.createServer(app);
 const wss = new ws.Server({ server });
@@ -13,21 +14,22 @@ wss.on('connection', (ws) => {
       case 'connection':
         wss.clients.forEach((client) => {
           if (client !== ws) {
-            name && client.send(`${name} has connected.`);
+            messages.push(`${name} has connected.`);
           } else {
-            name && ws.send(`You have connected.`);
+            messages.push(`You have connected.`);
           }
         });
       case 'message':
       default:
         wss.clients.forEach((client) => {
           if (client !== ws) {
-            input && client.send(`${name} says, "${input}"`);
+            messages.push(`${name} says, "${input}"`);
           } else {
-            input && ws.send(`You say, "${input}"`);
+            messages.push(`You say, "${input}"`);
           }
         });
     }
+    ws.send(messages);
   });
 
   ws.send('Welcome to the server!');
