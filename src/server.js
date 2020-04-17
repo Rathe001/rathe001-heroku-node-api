@@ -20,7 +20,9 @@ wss.on('connection', (ws) => {
         messages.push({ name, input, type, id: messages.length + 1 });
         break;
     }
-    ws.send(JSON.stringify(messages));
+    wss.clients.forEach((client) => {
+      ws.send(JSON.stringify(messages));
+    });
   });
 });
 
