@@ -13,18 +13,18 @@ wss.on('connection', (ws) => {
       case 'connection':
         wss.clients.forEach((client) => {
           if (client !== ws) {
-            client.send(`${name} has connected.`);
+            name && client.send(`${name} has connected.`);
           } else {
-            ws.send(`You have connected.`);
+            name && ws.send(`You have connected.`);
           }
         });
       case 'message':
       default:
         wss.clients.forEach((client) => {
           if (client !== ws) {
-            client.send(`${name} says, "${input}"`);
+            input && client.send(`${name} says, "${input}"`);
           } else {
-            ws.send(`You say, "${input}"`);
+            input && ws.send(`You say, "${input}"`);
           }
         });
     }
