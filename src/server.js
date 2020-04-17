@@ -10,25 +10,16 @@ const wss = new ws.Server({ server });
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
     const { name, input, type } = JSON.parse(data);
-    messages.push('Welcome to the server!');
 
     switch (type) {
       case 'connection':
         wss.clients.forEach((client) => {
-          if (client !== ws) {
-            messages.push(`${name} has connected.`);
-          } else {
-            messages.push(`You have connected.`);
-          }
+          messages.push({ name, input, type });
         });
       case 'message':
       default:
         wss.clients.forEach((client) => {
-          if (client !== ws) {
-            messages.push(`${name} says, "${input}"`);
-          } else {
-            messages.push(`You say, "${input}"`);
-          }
+          messages.push({ name, input, type });
         });
     }
     ws.send(JSON.stringify(messages));
