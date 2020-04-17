@@ -14,12 +14,12 @@ wss.on('connection', (ws) => {
     switch (type) {
       case 'connection':
         wss.clients.forEach((client) => {
-          messages.push({ name, input, type });
+          messages.push({ name, input, type, id: messages.length + 1 });
         });
       case 'message':
       default:
         wss.clients.forEach((client) => {
-          messages.push({ name, input, type });
+          messages.push({ name, input, type, id: messages.length + 1 });
         });
     }
     ws.send(JSON.stringify(messages));
