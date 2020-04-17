@@ -30,11 +30,13 @@ wsServer.on('request', function (request) {
   console.log(`User ${userID} connected from ${request.origin}`);
 
   connection.on('message', (message) => {
-    if (message.type === 'utf8') {
-      connection.sendUTF(message.utf8Data);
-    } else if (message.type === 'binary') {
-      connection.sendBytes(message.binaryData);
-    }
+    Object.keys(clients).forEach((key) => {
+      if (message.type === 'utf8') {
+        clients[key].sendUTF(message.utf8Data);
+      } else if (message.type === 'binary') {
+        clients[key].sendBytes(message.binaryData);
+      }
+    });
   });
 
   connection.on('close', (reasonCode, description) => {
