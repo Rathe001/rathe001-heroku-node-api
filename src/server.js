@@ -33,8 +33,6 @@ wsServer.on('request', function (request) {
     Object.keys(clients).forEach((key) => {
       if (message.type === 'utf8') {
         clients[key].sendUTF(message.utf8Data);
-      } else if (message.type === 'binary') {
-        clients[key].sendBytes(message.binaryData);
       }
     });
   });
